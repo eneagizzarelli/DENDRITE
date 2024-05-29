@@ -1,4 +1,3 @@
-import os
 import time
 import subprocess
 
@@ -10,7 +9,7 @@ def main():
 
     session_start_time = time.time()
     try:
-        subprocess.run(['login', '-f', os.getlogin()], check=True)
+        subprocess.run(['/bin/bash', '--norc', '--noprofile'], check=True)
     except KeyboardInterrupt:
         print("\n", end="")
     except EOFError:
