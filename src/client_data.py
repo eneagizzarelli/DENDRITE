@@ -44,7 +44,14 @@ def initialize_client_data(session_start_time):
             json.dump(data, client_data_file, indent=4)
             client_data_file.write("\n")
     
-    write_client_session_duration_in_seconds(session_start_time)
+    with open(logs_ip_data_path, "r") as client_data_file:
+        data = json.load(client_data_file)
+        
+        data["session_durations_in_seconds"].append(session_start_time)
+
+        with open(logs_ip_data_path, "w") as client_data_file:
+            json.dump(data, client_data_file, indent=4)
+            client_data_file.write("\n")
 
 def get_client_geolocation():
     reader = geoip2.database.Reader(database_path)
