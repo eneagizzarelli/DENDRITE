@@ -1,9 +1,9 @@
 #!/bin/bash
 
-SYNAPSE_path="/home/enea/SYNAPSE"
+DENDRITE_path="/home/DENDRITE"
 
-if [ -f "${SYNAPSE_path}/data/GeoLite2-City.mmdb" ]; then
-    sudo rm -f ${SYNAPSE_path}/data/GeoLite2-City.mmdb
+if [ -f "${DENDRITE_path}/data/GeoLite2-City.mmdb" ]; then
+    sudo rm -f ${DENDRITE_path}/data/GeoLite2-City.mmdb
 fi
 
-curl -L -o ${SYNAPSE_path}/data/GeoLite2-City.mmdb https://git.io/GeoLite2-City.mmdb
+curl -L -o ${DENDRITE_path}/data/GeoLite2-City.mmdb https://git.io/GeoLite2-City.mmdb

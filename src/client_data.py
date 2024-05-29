@@ -15,9 +15,9 @@ def get_client_ip():
 
 client_ip = get_client_ip()
 
-logs_ip_path = "/home/enea/SYNAPSE/logs/" + client_ip
+logs_ip_path = "/home/DENDRITE/logs/" + client_ip
 logs_ip_data_path = logs_ip_path + "/" + client_ip + "_data.json"
-database_path = "/home/enea/SYNAPSE/data/GeoLite2-City.mmdb"
+database_path = "/home/DENDRITE/data/GeoLite2-City.mmdb"
 
 def initialize_client_data():
     if not os.path.exists(logs_ip_path):
@@ -95,12 +95,3 @@ def write_client_session_duration_in_seconds(session_duration_in_seconds):
     with open(logs_ip_data_path, "w") as client_data_file:
         json.dump(data, client_data_file, indent=4)
         client_data_file.write("\n")
-
-def get_count_classification_history_files():
-    count_classification_history_files = 0
-
-    for classification_file in os.listdir(logs_ip_path):
-        if classification_file.startswith(client_ip + "_classification_history_"):
-            count_classification_history_files += 1
-
-    return count_classification_history_files
