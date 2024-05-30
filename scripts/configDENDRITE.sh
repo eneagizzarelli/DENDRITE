@@ -28,6 +28,8 @@ sudo chmod 710 ${DENDRITE_path}/src/DENDRITE_logout.py
 sudo chgrp nonroot ${DENDRITE_path}/src/client_data.py
 sudo chmod 710 ${DENDRITE_path}/src/client_data.py
 
+sudo chgrp nonroot ${DENDRITE_path}/scripts
+sudo chmod 710 ${DENDRITE_path}/scripts
 sudo chgrp nonroot ${DENDRITE_path}/logs
 sudo chmod 710 ${DENDRITE_path}/logs
 sudo chgrp nonroot ${DENDRITE_path}/data
