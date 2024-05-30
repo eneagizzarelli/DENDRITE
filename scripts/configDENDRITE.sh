@@ -32,3 +32,6 @@ sudo chgrp nonroot ${DENDRITE_path}/logs
 sudo chmod 710 ${DENDRITE_path}/logs
 sudo chgrp nonroot ${DENDRITE_path}/data
 sudo chmod 710 ${DENDRITE_path}/data
+
+sudo chmod 4755 ${DENDRITE_path}/scripts/run_dendrite_login.sh
+sudo chmod 4755 ${DENDRITE_path}/scripts/run_dendrite_logout.sh
