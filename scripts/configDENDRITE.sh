@@ -13,7 +13,7 @@ mkdir -p ${DENDRITE_path}/data
 
 ${DENDRITE_path}/scripts/downloadGeoLiteDB.sh
 
-sudo chown -R root:root ${DENDRITE_path}
+sudo chown -R root:nonroot ${DENDRITE_path}
 sudo chmod -R 700 ${DENDRITE_path}
 
 sudo chgrp nonroot ${DENDRITE_path}/src/DENDRITE_login.py
