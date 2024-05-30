@@ -13,7 +13,5 @@ mkdir -p ${DENDRITE_path}/data
 
 ${DENDRITE_path}/scripts/downloadGeoLiteDB.sh
 
-sudo chown -R root:root ${DENDRITE_path}
-sudo chmod -R 711 ${DENDRITE_path}
-
-sudo find ${DENDRITE_path} -type f -name "*.py" -exec chmod 755 {} \;
+sudo chown -R enea:enea ${DENDRITE_path}
+sudo chmod -R 700 ${DENDRITE_path}
