@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DENDRITE_path="/home/enea/DENDRITE"
+DENDRITE_path="/home/DENDRITE"
 
 if [ -f "${DENDRITE_path}/data/GeoLite2-City.mmdb" ]; then
     sudo rm -f ${DENDRITE_path}/data/GeoLite2-City.mmdb

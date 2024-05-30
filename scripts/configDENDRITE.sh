@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DENDRITE_path="/home/enea/DENDRITE"
+DENDRITE_path="/home/DENDRITE"
 
 if [ -d "${DENDRITE_path}" ]; then
     sudo rm -rf ${DENDRITE_path}
@@ -13,5 +13,5 @@ mkdir -p ${DENDRITE_path}/data
 
 ${DENDRITE_path}/scripts/downloadGeoLiteDB.sh
 
-sudo chown -R enea:enea ${DENDRITE_path}
+sudo chown -R root:root ${DENDRITE_path}
 sudo chmod -R 700 ${DENDRITE_path}
