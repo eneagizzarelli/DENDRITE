@@ -15,3 +15,10 @@ ${DENDRITE_path}/scripts/downloadGeoLiteDB.sh
 
 sudo chown -R root:root ${DENDRITE_path}
 sudo chmod -R 700 ${DENDRITE_path}
+
+sudo chgrp nonroot ${DENDRITE_path}/src/DENDRITE_login.py
+sudo chgrp nonroot ${DENDRITE_path}/src/DENDRITE_logout.py
+sudo chgrp nonroot ${DENDRITE_path}/src/client_data.py
+sudo chmod 750 ${DENDRITE_path}/src/DENDRITE_login.py
+sudo chmod 750 ${DENDRITE_path}/src/DENDRITE_logout.py
+sudo chmod 750 ${DENDRITE_path}/src/client_data.py
