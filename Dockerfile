@@ -7,6 +7,9 @@ RUN useradd -m enea && echo "enea:password" | chpasswd
 # Update the package list and install auditd
 RUN apt-get update && apt-get install -y auditd
 
+# Set up auditd to run with the correct permissions
+RUN mkdir -p /var/log/audit && chown -R enea:enea /var/log/audit
+
 # Switch to the new user
 USER enea
 
@@ -14,4 +17,4 @@ USER enea
 WORKDIR /home/enea
 
 # Ensure auditd starts with the container
-CMD ["auditd", "-f"]
+CMD ["sudo", "auditd", "-f"]
