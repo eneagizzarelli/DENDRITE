@@ -5,6 +5,6 @@ USER enea
 WORKDIR /home/enea
 
 # Install auditd in the container
-RUN apt-get install -y auditd
+RUN sudo apt-get install -y auditd
 # Ensure auditd starts with the container
 CMD ["auditd", "-f"]
