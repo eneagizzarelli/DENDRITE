@@ -1,1 +1,1 @@
-# DENDRITE
+# DENDRITE: static equivalent of SYNAPSE
