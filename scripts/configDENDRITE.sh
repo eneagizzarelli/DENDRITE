@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DENDRITE_path="/home/DENDRITE"
+DENDRITE_path="/home/enea/DENDRITE"
 
 if [ -d "${DENDRITE_path}" ]; then
     sudo rm -rf ${DENDRITE_path}

@@ -15,9 +15,9 @@ def get_client_ip():
 
 client_ip = get_client_ip()
 
-logs_ip_path = "/home/DENDRITE/logs/" + client_ip
+logs_ip_path = "/home/enea/DENDRITE/logs/" + client_ip
 logs_ip_data_path = logs_ip_path + "/" + client_ip + "_data.json"
-database_path = "/home/DENDRITE/data/GeoLite2-City.mmdb"
+database_path = "/home/enea/DENDRITE/data/GeoLite2-City.mmdb"
 
 def initialize_client_data(session_start_time):
     if not os.path.exists(logs_ip_path):
