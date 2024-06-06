@@ -3,6 +3,11 @@ FROM ubuntu:latest
 # Create a new user
 RUN useradd -m enea && echo "enea:password" | chpasswd
 
+# Pre-configure MySQL server settings to make the installation non-interactive
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
+    echo "mysql-server mysql-server/root_password password password" | debconf-set-selections && \
+    echo "mysql-server mysql-server/root_password_again password password" | debconf-set-selections
+
 # Install MySQL server
 RUN apt-get update && \
     apt-get install -y mysql-server && \
@@ -16,7 +21,7 @@ USER root
 
 # Run MySQL secure installation and create user
 RUN service mysql start && \
-    /usr/bin/mysqladmin -u root password 'newpassword' && \
+    /usr/bin/mysqladmin -u root -pnewpassword password 'password' && \
     mysql -uroot -pnewpassword -e "DELETE FROM mysql.user WHERE User='';" && \
     mysql -uroot -pnewpassword -e "DROP DATABASE test;" && \
     mysql -uroot -pnewpassword -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';" && \
