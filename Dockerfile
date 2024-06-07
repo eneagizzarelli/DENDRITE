@@ -5,6 +5,8 @@ RUN useradd -m enea && echo "enea:password" | chpasswd
 
 COPY docker_entrypoint_scripts/sql_init.sql /docker-entrypoint-initdb.d/
 
+RUN chmod 644 /docker-entrypoint-initdb.d/sql_init.sql
+
 # Switch to the new user
 USER enea
 
