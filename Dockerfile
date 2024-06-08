@@ -1,4 +1,4 @@
-FROM ubuntu/mysql:8.0-22.04_beta
+FROM ubuntu:latest
 
 # Create a new user
 RUN useradd -m enea && echo "enea:password" | chpasswd
