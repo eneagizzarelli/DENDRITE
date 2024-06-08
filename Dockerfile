@@ -5,8 +5,7 @@ FROM ubuntu:latest
 RUN useradd -m enea && echo "enea:password" | chpasswd
 
 # Update the package list and install MySQL server
-RUN apt-get update && \
-apt-get install -y mysql-server
+RUN apt-get update && apt-get install -y mysql-server
 
 # Switch to the new user 'enea'
 USER enea
