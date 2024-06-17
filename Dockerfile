@@ -9,8 +9,11 @@ RUN apt-get update && apt-get install -y mysql-server && apt-get clean
 
 RUN usermod -d /var/lib/mysql/ mysql
 
+# Initialize MySQL without a password
+RUN mysqld --initialize-insecure
+
 # Start the MySQL service and secure the installation
-RUN mysqld --initialize-insecure && service mysql start && sleep 10 && \
+RUN service mysql start && sleep 10 && \
     mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'rootpassword';" && \
     mysql -e "DELETE FROM mysql.user WHERE User='';" && \
     mysql -e "DROP DATABASE IF EXISTS test;" && \
