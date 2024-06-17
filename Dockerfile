@@ -7,17 +7,20 @@ RUN useradd -m enea && echo "enea:password" | chpasswd
 # Update the package list and install MySQL server
 RUN apt-get update && apt-get install -y mysql-server && apt-get clean
 
+# Adjust MySQL data directory ownership
 RUN usermod -d /var/lib/mysql/ mysql
 
-RUN /bin/bash -c "/usr/bin/mysqld_safe --skip-grant-tables &" && \
+# Start MySQL server with --skip-grant-tables and run the necessary SQL commands
+RUN /bin/bash -c "mysqld_safe --skip-grant-tables &" && \
     sleep 10 && \
-    mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'rootpassword';" && \
+    mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'rootpassword';" && \
     mysql -e "DELETE FROM mysql.user WHERE User='';" && \
     mysql -e "DROP DATABASE IF EXISTS test;" && \
     mysql -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';" && \
     mysql -e "CREATE USER 'enea'@'localhost' IDENTIFIED BY 'password';" && \
     mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'enea'@'localhost' WITH GRANT OPTION;" && \
-    mysql -e "FLUSH PRIVILEGES;"
+    mysql -e "FLUSH PRIVILEGES;" && \
+    mysqladmin shutdown
 
 # Switch to the new user 'enea'
 USER enea
