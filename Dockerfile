@@ -5,7 +5,17 @@ FROM ubuntu:latest
 RUN useradd -m enea && echo "enea:password" | chpasswd
 
 # Update the package list and install MySQL server
-RUN apt-get update && apt-get install -y mysql-server
+RUN apt-get update && apt-get install -y mysql-server && apt-get clean
+
+# Start the MySQL service and secure the installation
+RUN service mysql start && \
+    mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'rootpassword';" && \
+    mysql -e "DELETE FROM mysql.user WHERE User='';" && \
+    mysql -e "DROP DATABASE IF EXISTS test;" && \
+    mysql -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';" && \
+    mysql -e "CREATE USER 'enea'@'localhost' IDENTIFIED BY 'password';" && \
+    mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'enea'@'localhost' WITH GRANT OPTION;" && \
+    mysql -e "FLUSH PRIVILEGES;"
 
 # Switch to the new user 'enea'
 USER enea
