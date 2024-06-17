@@ -10,6 +10,12 @@ RUN apt-get update && apt-get install -y mysql-server && apt-get clean
 # Adjust MySQL data directory ownership
 RUN usermod -d /var/lib/mysql/ mysql
 
+# Copy the entrypoint script into the container
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# Make the entrypoint script executable
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 # Start MySQL server with --skip-grant-tables and run the necessary SQL commands
 RUN service mysql start && sleep 5 && \
     mysql -prootpassword -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'rootpassword';" && \
@@ -26,4 +32,4 @@ USER enea
 # Set the working directory to the home directory of 'enea'
 WORKDIR /home/enea
 
-CMD service mysql start && tail -F /var/log/mysql/error.log
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
