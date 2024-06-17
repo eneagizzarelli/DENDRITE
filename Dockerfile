@@ -20,5 +20,9 @@ RUN service mysql start && sleep 5 && \
     mysql -prootpassword -e "CREATE USER 'enea'@'localhost' IDENTIFIED BY 'password';" && \
     mysql -prootpassword -e "GRANT ALL PRIVILEGES ON *.* TO 'enea'@'localhost' WITH GRANT OPTION;" && \
     mysql -prootpassword -e "FLUSH PRIVILEGES;"
-    
-CMD service mysql start && tail -F /var/log/mysql/error.log
+
+# Switch to the new user 'enea'
+USER enea
+
+# Set the working directory to the home directory of 'enea'
+WORKDIR /home/enea
