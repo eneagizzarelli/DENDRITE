@@ -25,3 +25,5 @@ USER enea
 
 # Set the working directory to the home directory of 'enea'
 WORKDIR /home/enea
+
+ENTRYPOINT service mysql start && /bin/bash
