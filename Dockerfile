@@ -11,10 +11,9 @@ RUN apt-get update && apt-get install -y mysql-server && apt-get clean
 RUN usermod -d /var/lib/mysql/ mysql
 
 # Start MySQL server with --skip-grant-tables and run the necessary SQL commands
-RUN /bin/bash -c "mysqld_safe --skip-grant-tables &" && \
-    sleep 10 && \
-    mysql -e "FLUSH PRIVILEGES;" && \
-    mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'rootpassword';" && \
+RUN /bin/bash -c "mysqld_safe --skip-grant-tables &" && sleep 10
+
+RUN mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'rootpassword';" && \
     mysql -e "DELETE FROM mysql.user WHERE User='';" && \
     mysql -e "DROP DATABASE IF EXISTS test;" && \
     mysql -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';" && \
