@@ -15,7 +15,7 @@ RUN usermod -d /var/lib/mysql/ mysql
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 # Make the entrypoint script executable
-RUN chown enea:enea /usr/local/bin/entrypoint.sh && chmod +x /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Start MySQL server with --skip-grant-tables and run the necessary SQL commands
 RUN service mysql start && sleep 5 && \

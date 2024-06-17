@@ -5,4 +5,4 @@ set -e
 service mysql start
 
 # Keep the container running
-tail -f /dev/null
+su enea -c "tail -f /dev/null"
