@@ -28,5 +28,3 @@ USER enea
 
 # Set the working directory to the home directory of 'enea'
 WORKDIR /home/enea
-
-CMD service mysql start && tail -F /var/log/mysql/error.log
