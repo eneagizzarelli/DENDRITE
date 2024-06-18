@@ -14,8 +14,7 @@ RUN usermod -d /var/lib/mysql/ mysql && \
     chmod go+rx /var/lib/mysql/
 
 # Create a log file directory for the MySQL general log and set the correct ownership
-RUN mkdir /var/log/mysql && \
-    chmod 777 /var/log/mysql
+RUN chmod 777 /var/log/mysql
 
 # Start MySQL server and run the necessary SQL commands, logging to a file
 RUN service mysql start && sleep 5 && \
