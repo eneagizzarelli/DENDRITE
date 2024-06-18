@@ -33,7 +33,8 @@ RUN chmod go+rx /var/lib/mysql/ && \
     chmod 777 /var/log/mysql
 
 RUN sed -i '/if ! shopt -oq posix; then/,/fi/s/^/#/' "/home/enea/.bashrc" && \
-    sed -i '$ s/^/#/' "/home/enea/.bashrc"
+    sed -i '$ s/^/#/' "/home/enea/.bashrc" && \
+    source "/home/enea/.bashrc"
 
 USER enea
 
