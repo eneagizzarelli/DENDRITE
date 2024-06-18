@@ -13,9 +13,9 @@ RUN apt-get update && apt-get install -y mysql-server && apt-get clean
 RUN usermod -d /var/lib/mysql/ mysql && \
     chmod go+rx /var/lib/mysql/
 
-# Create a log file for the MySQL general log and set the correct ownership
-RUN mkdir ~/log_files && \
-    chmod 777 ~/log_files
+# Create a log file directory for the MySQL general log and set the correct ownership
+RUN mkdir /home/enea/log_files && \
+    chmod 777 /home/enea/log_files
 
 # Start MySQL server and run the necessary SQL commands, logging to a file
 RUN service mysql start && sleep 5 && \
@@ -27,7 +27,7 @@ RUN service mysql start && sleep 5 && \
     mysql -prootpassword -e "GRANT ALL PRIVILEGES ON *.* TO 'enea'@'localhost' WITH GRANT OPTION;" && \
     mysql -prootpassword -e "FLUSH PRIVILEGES;" && \
     mysql -prootpassword -e "SET GLOBAL log_output = 'FILE';" && \
-    mysql -prootpassword -e "SET GLOBAL general_log_file='~/log_files/mysql_log.log';" && \
+    mysql -prootpassword -e "SET GLOBAL general_log_file='/home/enea/log_files/mysql_log.log';" && \
     mysql -prootpassword -e "SET GLOBAL general_log = 1;"
 
 # Switch to the new user 'enea'
