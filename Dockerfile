@@ -14,9 +14,6 @@ RUN usermod -d /var/lib/mysql/ mysql && \
     chmod go+rx /var/lib/mysql/ && \
     chmod go+rx /var/run/mysqld/
 
-# Create a log file directory for the MySQL general log and set the correct ownership
-RUN chmod 777 /var/log/mysql
-
 # Start MySQL server and run the necessary SQL commands, logging to a file
 RUN service mysql start && sleep 5 && \
     mysql -prootpassword -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'rootpassword';" && \
@@ -26,9 +23,6 @@ RUN service mysql start && sleep 5 && \
     mysql -prootpassword -e "CREATE USER 'enea'@'localhost' IDENTIFIED BY 'password';" && \
     mysql -prootpassword -e "GRANT ALL PRIVILEGES ON *.* TO 'enea'@'localhost' WITH GRANT OPTION;" && \
     mysql -prootpassword -e "FLUSH PRIVILEGES;" && \
-    mysql -prootpassword -e "SET GLOBAL log_output = 'FILE';" && \
-    mysql -prootpassword -e "SET GLOBAL general_log = 1;" && \
-    mysql -prootpassword -e "SET GLOBAL general_log_file='/var/log/mysql/mysql_log.log';" && \
     service mysql stop
 
 # Switch to the new user 'enea'
