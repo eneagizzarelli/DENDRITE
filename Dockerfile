@@ -11,7 +11,8 @@ RUN apt-get update && apt-get install -y mysql-server && apt-get clean
 
 # Adjust MySQL data directory ownership and permissions
 RUN usermod -d /var/lib/mysql/ mysql && \
-    chmod go+rx /var/lib/mysql/
+    chmod go+rx /var/lib/mysql/ && \
+    chmod go+rx /var/run/mysqld/
 
 # Create a log file directory for the MySQL general log and set the correct ownership
 RUN chmod 777 /var/log/mysql
