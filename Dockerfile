@@ -32,7 +32,7 @@ RUN chmod go+rx /var/lib/mysql/ && \
     chmod go+rx /var/run/mysqld/ && \
     chmod 777 /var/log/mysql
 
-RUN echo "set disable-completion on" >> ~/.inputrc
+RUN echo "set disable-completion on" >> /home/enea/.inputrc
 
 USER enea
 
