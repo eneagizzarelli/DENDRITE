@@ -21,7 +21,10 @@ RUN service mysql start && sleep 5 && \
     mysql -prootpassword -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';" && \
     mysql -prootpassword -e "CREATE USER 'enea'@'localhost' IDENTIFIED BY 'password';" && \
     mysql -prootpassword -e "GRANT ALL PRIVILEGES ON *.* TO 'enea'@'localhost' WITH GRANT OPTION;" && \
-    mysql -prootpassword -e "FLUSH PRIVILEGES;"
+    mysql -prootpassword -e "FLUSH PRIVILEGES;" && \
+    mysql -prootpassword -e "SET global log_output = 'FILE';" && \
+    mysql -prootpassword -e "SET global general_log_file='/home/enea/mysql_general.log';" && \
+    mysql -prootpassword -e "SET global general_log = 1;"
 
 # Switch to the new user 'enea'
 USER enea
