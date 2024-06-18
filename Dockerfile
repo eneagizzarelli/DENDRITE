@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install -y mysql-server && apt-get clean
 RUN usermod -d /var/lib/mysql/ mysql
 
 RUN chmod go+rx /var/lib/mysql/
-RUN chmod go+rx /var/run/mysqld/
 
 # Start MySQL server and run the necessary SQL commands
 RUN service mysql start && sleep 5 && \
