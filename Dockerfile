@@ -32,9 +32,7 @@ RUN chmod go+rx /var/lib/mysql/ && \
     chmod go+rx /var/run/mysqld/ && \
     chmod 777 /var/log/mysql
 
-RUN sed -i '/if ! shopt -oq posix; then/,/fi/s/^/#/' "/home/enea/.bashrc" && \
-    sed -i '$ s/^/#/' "/home/enea/.bashrc" && \
-    . "/home/enea/.bashrc"
+RUN echo "set disable-completion on" >> /home/enea/.inputrc
 
 USER enea
 
