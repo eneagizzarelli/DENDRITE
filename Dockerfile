@@ -28,7 +28,8 @@ RUN service mysql start && sleep 5 && \
     mysql -prootpassword -e "FLUSH PRIVILEGES;" && \
     mysql -prootpassword -e "SET GLOBAL log_output = 'FILE';" && \
     mysql -prootpassword -e "SET GLOBAL general_log_file='/var/log/mysql/mysql_log.log';" && \
-    mysql -prootpassword -e "SET GLOBAL general_log = 1;"
+    mysql -prootpassword -e "SET GLOBAL general_log = 1;" && \
+    service mysql stop
 
 # Switch to the new user 'enea'
 USER enea
