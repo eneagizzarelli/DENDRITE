@@ -14,6 +14,9 @@ RUN usermod -d /var/lib/mysql/ mysql && \
     chmod go+rx /var/lib/mysql/ && \
     chmod go+rx /var/run/mysqld/
 
+# Create a log file directory for the MySQL general log and set the correct ownership
+RUN chmod 777 /var/log/mysql
+
 # Start MySQL server and run the necessary SQL commands, logging to a file
 RUN service mysql start && sleep 5 && \
     mysql -prootpassword -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'rootpassword';" && \
