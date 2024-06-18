@@ -7,7 +7,10 @@ RUN useradd -m enea && \
     userdel -r ubuntu
 
 # Update the package list, install MySQL server and clean up the package list
-RUN apt-get update && apt-get install -y mysql-server && apt-get clean
+RUN apt-get update && \
+    apt-get --purge remove bash-completion && \
+    apt-get install -y mysql-server && \
+    apt-get clean
 
 # Adjust MySQL data directory ownership and permissions
 RUN usermod -d /var/lib/mysql/ mysql
