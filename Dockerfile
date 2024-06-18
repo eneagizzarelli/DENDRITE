@@ -1,19 +1,23 @@
 # Use the latest version of Ubuntu as the base image
 FROM ubuntu:latest
 
-# Create a new user 'enea' with a password 'password'
-RUN useradd -m enea && echo "enea:password" | chpasswd && \
+# Create a new user 'enea' with password 'password' and delete default user 'ubuntu'
+RUN useradd -m enea && \
+    echo "enea:password" | chpasswd && \
     userdel -r ubuntu
 
-# Update the package list and install MySQL server
+# Update the package list, install MySQL server and clean up the package list
 RUN apt-get update && apt-get install -y mysql-server && apt-get clean
 
-# Adjust MySQL data directory ownership
-RUN usermod -d /var/lib/mysql/ mysql
+# Adjust MySQL data directory ownership and permissions
+RUN usermod -d /var/lib/mysql/ mysql && \
+    chmod go+rx /var/lib/mysql/
 
-RUN chmod go+rx /var/lib/mysql/
+# Create a log file for the MySQL general log and set the correct ownership
+RUN touch /home/enea/mysql_general.log && \
+    chown enea:enea /home/enea/mysql_general.log
 
-# Start MySQL server and run the necessary SQL commands
+# Start MySQL server and run the necessary SQL commands, logging to a file
 RUN service mysql start && sleep 5 && \
     mysql -prootpassword -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'rootpassword';" && \
     mysql -prootpassword -e "DELETE FROM mysql.user WHERE User='';" && \
