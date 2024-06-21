@@ -286,19 +286,6 @@ RUN service mysql start && sleep 5 && \
         (2, '5100123412341234', 'MasterCard', '2024-11-30'), \
         (3, '370012341234123', 'American Express', '2026-10-31'), \
         (4, '6011123412341234', 'Discover', '2025-09-30');" && \
-    mysql -prootpassword -e "FLUSH PRIVILEGES;" && \
-    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Bank.* TO 'enea'@'localhost';" && \
-    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Bank.Accounts TO 'enea'@'localhost';" && \
-    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Bank.Transactions TO 'enea'@'localhost';" && \
-    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Bank.Customers TO 'enea'@'localhost';" && \
-    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Bank.Loans TO 'enea'@'localhost';" && \
-    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Bank.Employees TO 'enea'@'localhost';" && \
-    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Bank.CreditCards TO 'enea'@'localhost';" && \
-    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Bank.CreditCards FROM 'enea'@'localhost';" && \
-    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Company.* TO 'enea'@'localhost';" && \
-    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Hospital.* TO 'enea'@'localhost';" && \
-    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON University.* TO 'enea'@'localhost';" && \
-    mysql -prootpassword -e "FLUSH PRIVILEGES;" && \
     service mysql stop
 
 RUN sed -i 's/^# pid-file/pid-file/' /etc/mysql/mysql.conf.d/mysqld.cnf && \
