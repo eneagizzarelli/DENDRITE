@@ -42,8 +42,7 @@ COPY ./content/Projects /home/enea/Documents
 RUN chown -R enea:enea /home/enea/Projects && \
     chown -R enea:enea /home/enea/Reports && \
     chown -R enea:enea /home/enea/Scripts && \
-    chown -R enea:enea /home/enea/Documents && \
-    chown -R root:root /home/enea/Projects/DataAnalysis/report.docx
+    chown -R enea:enea /home/enea/Documents
 
 USER enea
 
