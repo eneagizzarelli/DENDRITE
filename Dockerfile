@@ -244,6 +244,14 @@ RUN service mysql start && sleep 5 && \
         position VARCHAR(255) NOT NULL, \
         hire_date DATE NOT NULL \
     ); \
+    CREATE TABLE IF NOT EXISTS CreditCards ( \
+        card_id INT AUTO_INCREMENT PRIMARY KEY, \
+        customer_id INT, \
+        card_number VARCHAR(16) NOT NULL UNIQUE, \
+        card_type VARCHAR(255) NOT NULL, \
+        expiration_date DATE NOT NULL, \
+        FOREIGN KEY (customer_id) REFERENCES Customers(customer_id) \
+    ); \
     INSERT INTO Accounts (customer_id, account_type, balance) VALUES \
         (301, 'Savings', 5000.00), \
         (302, 'Checking', 1500.00), \
@@ -268,7 +276,23 @@ RUN service mysql start && sleep 5 && \
         ('Emma', 'Wilson', 'emma.wilson@bank.com', '555-5555', 'Manager', '2022-01-01'), \
         ('Liam', 'Martinez', 'liam.martinez@bank.com', '555-6666', 'Clerk', '2022-02-01'), \
         ('Olivia', 'Anderson', 'olivia.anderson@bank.com', '555-7777', 'Teller', '2022-03-01'), \
-        ('Noah', 'Thompson', 'noah.thompson@bank.com', '555-8888', 'Loan Officer', '2022-04-01');" && \
+        ('Noah', 'Thompson', 'noah.thompson@bank.com', '555-8888', 'Loan Officer', '2022-04-01'); \
+    INSERT INTO CreditCards (customer_id, card_number, card_type, expiration_date) VALUES \
+        (301, '4000123412341234', 'Visa', '2025-12-31'), \
+        (302, '5100123412341234', 'MasterCard', '2024-11-30'), \
+        (303, '370012341234123', 'American Express', '2026-10-31'), \
+        (304, '6011123412341234', 'Discover', '2025-09-30');" && \
+    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Company.Employees FROM 'enea'@'localhost';" && \
+    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Company.Customers FROM 'enea'@'localhost';" && \
+    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Company.Orders FROM 'enea'@'localhost';" && \
+    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON University.Professors FROM 'enea'@'localhost';" && \
+    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Hospital.Patients FROM 'enea'@'localhost';" && \
+    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Hospital.Doctors FROM 'enea'@'localhost';" && \
+    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Bank.Accounts FROM 'enea'@'localhost';" && \
+    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Bank.Customers FROM 'enea'@'localhost';" && \
+    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Bank.Employees FROM 'enea'@'localhost';" && \
+    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Bank.CreditCards FROM 'enea'@'localhost';" && \
+    mysql -prootpassword -e "FLUSH PRIVILEGES;" && \
     service mysql stop
 
 RUN sed -i 's/^# pid-file/pid-file/' /etc/mysql/mysql.conf.d/mysqld.cnf && \
