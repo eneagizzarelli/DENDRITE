@@ -35,9 +35,9 @@ RUN chmod go+rx /var/lib/mysql/ && \
 RUN echo "set disable-completion on" >> /home/enea/.inputrc
 
 COPY ./content/Projects /home/enea/Projects
-COPY ./content/Projects /home/enea/Reports
-COPY ./content/Projects /home/enea/Scripts
-COPY ./content/Projects /home/enea/Documents
+COPY ./content/Reports /home/enea/Reports
+COPY ./content/Scripts /home/enea/Scripts
+COPY ./content/Documents /home/enea/Documents
 
 RUN chown -R enea:enea /home/enea/Projects && \
     chown -R enea:enea /home/enea/Reports && \
