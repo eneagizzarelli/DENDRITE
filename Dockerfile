@@ -296,6 +296,10 @@ RUN service mysql start && sleep 5 && \
     mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Hospital.Departments TO 'enea'@'localhost';" && \
     mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Bank.Transactions TO 'enea'@'localhost';" && \
     mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Bank.Loans TO 'enea'@'localhost';" && \
+    mysql -prootpassword -e "GRANT SHOW TABLES ON Company.* TO 'enea'@'localhost';" && \
+    mysql -prootpassword -e "GRANT SHOW TABLES ON University.* TO 'enea'@'localhost';" && \
+    mysql -prootpassword -e "GRANT SHOW TABLES ON Hospital.* TO 'enea'@'localhost';" && \
+    mysql -prootpassword -e "GRANT SHOW TABLES ON Bank.* TO 'enea'@'localhost';" && \
     mysql -prootpassword -e "FLUSH PRIVILEGES;" && \
     service mysql stop
 
