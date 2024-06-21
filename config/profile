@@ -1,0 +1,91 @@
+# ~/.profile: executed by the command interpreter for login shells.
+# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
+# exists.
+# see /usr/share/doc/bash/examples/startup-files for examples.
+# the files are located in the bash-doc package.
+
+# the default umask is set in /etc/profile; for setting the umask
+# for ssh logins, install and configure the libpam-umask package.
+#umask 022
+
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+    fi
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+python3 /home/enea/DENDRITE/src/DENDRITE_login.py
+
+# Get the IP address of the incoming connection
+IP_ADDRESS=$(echo $SSH_CLIENT | awk '{print $1}')
+
+# Customize environment based on IP address
+if [[ $- == *i* ]]; then
+    IMAGE_NAME="dendrite-image"
+    CONTAINER_NAME="dendrite-container-$IP_ADDRESS"
+    HOSTNAME="datalab"
+
+    # Set resource limits
+    MEMORY_LIMIT="1024m"
+    CPU_LIMIT="0.5"
+
+    # Check if the container already exists
+    if [[ "$(docker ps -aq -f name=$CONTAINER_NAME)" == "" ]]; then
+        docker run -d \
+            --name $CONTAINER_NAME \
+            --hostname $HOSTNAME \
+	    --user enea \
+            --memory $MEMORY_LIMIT \
+            --cpus $CPU_LIMIT \
+            $IMAGE_NAME tail -f /dev/null > /dev/null 2>&1
+    fi
+
+    # Start the container if it's not running
+    if [[ "$(docker ps -q -f name=$CONTAINER_NAME)" == "" ]]; then
+        docker start $CONTAINER_NAME > /dev/null 2>&1
+    fi
+
+    docker exec -it --user root $CONTAINER_NAME /bin/bash -c "service mysql start" > /dev/null 2>&1
+
+    # Attach to the Docker container
+    docker exec -it --user enea $CONTAINER_NAME /bin/bash
+
+    TERMINAL_HISTORY_FILE_PATH="/home/enea/DENDRITE/logs/${IP_ADDRESS}/${IP_ADDRESS}_terminal_history.txt"
+    TEMP_HISTORY_FILE_PATH="/home/enea/DENDRITE/logs/${IP_ADDRESS}/temp.txt"
+
+    # Update terminal history
+    touch $TERMINAL_HISTORY_FILE_PATH
+    touch $TEMP_HISTORY_FILE_PATH
+    docker cp $CONTAINER_NAME:/home/enea/.bash_history $TEMP_HISTORY_FILE_PATH > /dev/null 2>&1
+    cat $TEMP_HISTORY_FILE_PATH >> $TERMINAL_HISTORY_FILE_PATH
+
+    echo "" >> $TERMINAL_HISTORY_FILE_PATH
+    echo "---------- Here the session stopped. ----------" >> $TERMINAL_HISTORY_FILE_PATH
+    echo "" >> $TERMINAL_HISTORY_FILE_PATH
+
+    MYSQL_HISTORY_FILE_PATH="/home/enea/DENDRITE/logs/${IP_ADDRESS}/${IP_ADDRESS}_mysql_history.txt"
+
+    # Update mysql history
+    touch $MYSQL_HISTORY_FILE_PATH
+    docker cp $CONTAINER_NAME:/var/log/mysql/query.log $TEMP_HISTORY_FILE_PATH > /dev/null 2>&1
+    cat $TEMP_HISTORY_FILE_PATH > $MYSQL_HISTORY_FILE_PATH
+    rm -f $TEMP_HISTORY_FILE_PATH
+
+    docker stop $CONTAINER_NAME > /dev/null 2>&1 &
+fi
+
+python3 /home/enea/DENDRITE/src/DENDRITE_logout.py
+
+exit
