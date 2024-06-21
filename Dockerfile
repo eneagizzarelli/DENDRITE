@@ -284,7 +284,9 @@ RUN service mysql start && sleep 5 && \
         (2, '5100123412341234', 'MasterCard', '2024-11-30'), \
         (3, '370012341234123', 'American Express', '2026-10-31'), \
         (4, '6011123412341234', 'Discover', '2025-09-30');" && \
-    mysql -prootpassword -e "FLUSH PRIVILEGES;" && \
+    service mysql stop
+
+RUN service mysql start && sleep 5 && \
     mysql -prootpassword -e "CREATE USER 'enea'@'localhost' IDENTIFIED BY 'password';" && \
     mysql -prootpassword -e "GRANT ALL PRIVILEGES ON *.* TO 'enea'@'localhost' WITH GRANT OPTION;" && \
     mysql -prootpassword -e "FLUSH PRIVILEGES;" && \
