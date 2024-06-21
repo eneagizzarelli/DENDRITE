@@ -54,32 +54,7 @@ RUN service mysql start && sleep 5 && \
         product_name VARCHAR(255) NOT NULL, \
         product_price DECIMAL(10, 2) NOT NULL, \
         stock INT NOT NULL \
-    ); \
-    INSERT INTO Employees (first_name, last_name, email, phone_number) VALUES \
-        ('John', 'Doe', 'john.doe@comp.com', '555-1234'), \
-        ('Jane', 'Smith', 'jane.smith@comp.com', '555-5678'), \
-        ('Alice', 'Johnson', 'alice.johnson@comp.com', '555-8765'), \
-        ('Bob', 'Brown', 'bob.brown@comp.com', '555-4321'); \
-    INSERT INTO Projects (project_name, start_date, end_date) VALUES \
-        ('Website Redesign', '2023-01-15', '2023-06-30'), \
-        ('Mobile App Launch', '2023-03-01', '2023-12-31'), \
-        ('Cloud Migration', '2023-05-20', '2024-02-28'), \
-        ('Security Upgrade', '2023-07-10', '2023-11-15'); \
-    INSERT INTO Customers (customer_name, contact_name, email, phone_number) VALUES \
-        ('Acme Corp', 'Sarah Connor', 'sarah.connor@acme.com', '555-9876'), \
-        ('Globex Inc', 'Hank Scorpio', 'hank.scorpio@globex.com', '555-6543'), \
-        ('Initech', 'Peter Gibbons', 'peter.gibbons@initech.com', '555-3210'), \
-        ('Umbrella Corp', 'Alice Abernathy', 'alice.abernathy@umbrella.com', '555-7890'); \
-    INSERT INTO Orders (customer_id, order_date, total, status) VALUES \
-        (201, '2023-04-01', 1500.00, 'Shipped'), \
-        (202, '2023-05-15', 2500.00, 'Processing'), \
-        (203, '2023-06-20', 3500.00, 'Delivered'), \
-        (204, '2023-07-05', 4500.00, 'Cancelled'); \
-    INSERT INTO Products (product_name, product_price, stock) VALUES \
-        ('Laptop', 1200.00, 50), \
-        ('Smartphone', 800.00, 150), \
-        ('Tablet', 600.00, 100), \
-        ('Monitor', 300.00, 75);" && \
+    );" && \
     mysql -prootpassword -e "CREATE DATABASE IF NOT EXISTS University;" && \
     mysql -prootpassword -e "USE University; \
     CREATE TABLE IF NOT EXISTS Students ( \
@@ -114,32 +89,7 @@ RUN service mysql start && sleep 5 && \
         department_id INT AUTO_INCREMENT PRIMARY KEY, \
         department_name VARCHAR(255) NOT NULL, \
         head_of_department VARCHAR(255) NOT NULL \
-    ); \
-    INSERT INTO Students (first_name, last_name, email, phone_number) VALUES \
-        ('Emily', 'Davis', 'emily.davis@uni.edu', '555-1111'), \
-        ('Michael', 'Brown', 'michael.brown@uni.edu', '555-2222'), \
-        ('Jessica', 'Wilson', 'jessica.wilson@uni.edu', '555-3333'), \
-        ('Daniel', 'Taylor', 'daniel.taylor@uni.edu', '555-4444'); \
-    INSERT INTO Courses (course_name, start_date, end_date) VALUES \
-        ('Computer Science 101', '2023-01-10', '2023-05-15'), \
-        ('Mathematics 201', '2023-02-01', '2023-06-20'), \
-        ('Physics 301', '2023-03-05', '2023-07-25'), \
-        ('Chemistry 101', '2023-04-10', '2023-08-30'); \
-    INSERT INTO Professors (first_name, last_name, email, phone_number) VALUES \
-        ('Robert', 'Smith', 'robert.smith@uni.edu', '555-5555'), \
-        ('Linda', 'Johnson', 'linda.johnson@uni.edu', '555-6666'), \
-        ('William', 'Lee', 'william.lee@uni.edu', '555-7777'), \
-        ('Patricia', 'Miller', 'patricia.miller@uni.edu', '555-8888'); \
-    INSERT INTO Enrollments (student_id, course_id, enroll_date) VALUES \
-        (1, 101, '2023-01-15'), \
-        (2, 102, '2023-02-05'), \
-        (3, 103, '2023-03-10'), \
-        (4, 104, '2023-04-15'); \
-    INSERT INTO Departments (department_name, head_of_department) VALUES \
-        ('Computer Science', 'Dr. Alan Turing'), \
-        ('Mathematics', 'Dr. Ada Lovelace'), \
-        ('Physics', 'Dr. Albert Einstein'), \
-        ('Chemistry', 'Dr. Marie Curie');" && \
+    );" && \
     mysql -prootpassword -e "CREATE DATABASE IF NOT EXISTS Hospital;" && \
     mysql -prootpassword -e "USE Hospital; \
     CREATE TABLE IF NOT EXISTS Patients ( \
@@ -178,32 +128,7 @@ RUN service mysql start && sleep 5 && \
         department_id INT AUTO_INCREMENT PRIMARY KEY, \
         department_name VARCHAR(255) NOT NULL, \
         head_of_department VARCHAR(255) NOT NULL \
-    ); \
-    INSERT INTO Patients (first_name, last_name, email, phone_number) VALUES \
-        ('James', 'Anderson', 'james.anderson@hos.com', '555-1010'), \
-        ('Mary', 'Thompson', 'mary.thompson@hos.com', '555-2020'), \
-        ('Patricia', 'Martinez', 'patricia.martinez@hos.com', '555-3030'), \
-        ('Michael', 'Garcia', 'michael.garcia@hos.com', '555-4040'); \
-    INSERT INTO Doctors (first_name, last_name, email, phone_number) VALUES \
-        ('John', 'Smith', 'john.smith@hos.com', '555-5050'), \
-        ('Linda', 'Johnson', 'linda.johnson@hos.com', '555-6060'), \
-        ('Robert', 'Brown', 'robert.brown@hos.com', '555-7070'), \
-        ('Susan', 'Davis', 'susan.davis@hos.com', '555-8080'); \
-    INSERT INTO Appointments (patient_id, doctor_id, appointment_date, appointment_time) VALUES \
-        (1, 1, '2023-06-01', '09:00:00'), \
-        (2, 2, '2023-06-02', '10:00:00'), \
-        (3, 3, '2023-06-03', '11:00:00'), \
-        (4, 4, '2023-06-04', '12:00:00'); \
-    INSERT INTO Medications (medication_name, dosage, patient_id) VALUES \
-        ('Ibuprofen', '200mg', 1), \
-        ('Paracetamol', '500mg', 2), \
-        ('Amoxicillin', '250mg', 3), \
-        ('Metformin', '850mg', 4); \
-    INSERT INTO Departments (department_name, head_of_department) VALUES \
-        ('Cardiology', 'Dr. Gregory House'), \
-        ('Neurology', 'Dr. Meredith Grey'), \
-        ('Oncology', 'Dr. Richard Webber'), \
-        ('Pediatrics', 'Dr. Miranda Bailey');" && \
+    );" && \
     mysql -prootpassword -e "CREATE DATABASE IF NOT EXISTS Bank;" && \
     mysql -prootpassword -e "USE Bank; \
     CREATE TABLE IF NOT EXISTS Accounts ( \
@@ -244,6 +169,93 @@ RUN service mysql start && sleep 5 && \
         position VARCHAR(255) NOT NULL, \
         hire_date DATE NOT NULL \
     ); \
+    CREATE TABLE IF NOT EXISTS CreditCards ( \
+        card_id INT AUTO_INCREMENT PRIMARY KEY, \
+        customer_id INT, \
+        card_number VARCHAR(16) NOT NULL UNIQUE, \
+        card_type VARCHAR(255) NOT NULL, \
+        expiration_date DATE NOT NULL, \
+        FOREIGN KEY (customer_id) REFERENCES Customers(customer_id) \
+    );" && \
+    mysql -prootpassword -e "USE Company; \
+    INSERT INTO Employees (first_name, last_name, email, phone_number) VALUES \
+        ('John', 'Doe', 'john.doe@comp.com', '555-1234'), \
+        ('Jane', 'Smith', 'jane.smith@comp.com', '555-5678'), \
+        ('Alice', 'Johnson', 'alice.johnson@comp.com', '555-8765'), \
+        ('Bob', 'Brown', 'bob.brown@comp.com', '555-4321'); \
+    INSERT INTO Projects (project_name, start_date, end_date) VALUES \
+        ('Website Redesign', '2023-01-15', '2023-06-30'), \
+        ('Mobile App Launch', '2023-03-01', '2023-12-31'), \
+        ('Cloud Migration', '2023-05-20', '2024-02-28'), \
+        ('Security Upgrade', '2023-07-10', '2023-11-15'); \
+    INSERT INTO Customers (customer_name, contact_name, email, phone_number) VALUES \
+        ('Acme Corp', 'Sarah Connor', 'sarah.connor@acme.com', '555-9876'), \
+        ('Globex Inc', 'Hank Scorpio', 'hank.scorpio@globex.com', '555-6543'), \
+        ('Initech', 'Peter Gibbons', 'peter.gibbons@initech.com', '555-3210'), \
+        ('Umbrella Corp', 'Alice Abernathy', 'alice.abernathy@umbrella.com', '555-7890'); \
+    INSERT INTO Orders (customer_id, order_date, total, status) VALUES \
+        (201, '2023-04-01', 1500.00, 'Shipped'), \
+        (202, '2023-05-15', 2500.00, 'Processing'), \
+        (203, '2023-06-20', 3500.00, 'Delivered'), \
+        (204, '2023-07-05', 4500.00, 'Cancelled'); \
+    INSERT INTO Products (product_name, product_price, stock) VALUES \
+        ('Laptop', 1200.00, 50), \
+        ('Smartphone', 800.00, 150), \
+        ('Tablet', 600.00, 100), \
+        ('Monitor', 300.00, 75);" && \
+    mysql -prootpassword -e "USE University; \
+    INSERT INTO Students (first_name, last_name, email, phone_number) VALUES \
+        ('Emily', 'Davis', 'emily.davis@uni.edu', '555-1111'), \
+        ('Michael', 'Brown', 'michael.brown@uni.edu', '555-2222'), \
+        ('Jessica', 'Wilson', 'jessica.wilson@uni.edu', '555-3333'), \
+        ('Daniel', 'Taylor', 'daniel.taylor@uni.edu', '555-4444'); \
+    INSERT INTO Courses (course_name, start_date, end_date) VALUES \
+        ('Computer Science 101', '2023-01-10', '2023-05-15'), \
+        ('Mathematics 201', '2023-02-01', '2023-06-20'), \
+        ('Physics 301', '2023-03-05', '2023-07-25'), \
+        ('Chemistry 101', '2023-04-10', '2023-08-30'); \
+    INSERT INTO Professors (first_name, last_name, email, phone_number) VALUES \
+        ('Robert', 'Smith', 'robert.smith@uni.edu', '555-5555'), \
+        ('Linda', 'Johnson', 'linda.johnson@uni.edu', '555-6666'), \
+        ('William', 'Lee', 'william.lee@uni.edu', '555-7777'), \
+        ('Patricia', 'Miller', 'patricia.miller@uni.edu', '555-8888'); \
+    INSERT INTO Enrollments (student_id, course_id, enroll_date) VALUES \
+        (1, 101, '2023-01-15'), \
+        (2, 102, '2023-02-05'), \
+        (3, 103, '2023-03-10'), \
+        (4, 104, '2023-04-15'); \
+    INSERT INTO Departments (department_name, head_of_department) VALUES \
+        ('Computer Science', 'Dr. Alan Turing'), \
+        ('Mathematics', 'Dr. Ada Lovelace'), \
+        ('Physics', 'Dr. Albert Einstein'), \
+        ('Chemistry', 'Dr. Marie Curie');" && \
+    mysql -prootpassword -e "USE Hospital; \
+    INSERT INTO Patients (first_name, last_name, email, phone_number) VALUES \
+        ('James', 'Anderson', 'james.anderson@hos.com', '555-1010'), \
+        ('Mary', 'Thompson', 'mary.thompson@hos.com', '555-2020'), \
+        ('Patricia', 'Martinez', 'patricia.martinez@hos.com', '555-3030'), \
+        ('Michael', 'Garcia', 'michael.garcia@hos.com', '555-4040'); \
+    INSERT INTO Doctors (first_name, last_name, email, phone_number) VALUES \
+        ('John', 'Smith', 'john.smith@hos.com', '555-5050'), \
+        ('Linda', 'Johnson', 'linda.johnson@hos.com', '555-6060'), \
+        ('Robert', 'Brown', 'robert.brown@hos.com', '555-7070'), \
+        ('Susan', 'Davis', 'susan.davis@hos.com', '555-8080'); \
+    INSERT INTO Appointments (patient_id, doctor_id, appointment_date, appointment_time) VALUES \
+        (1, 1, '2023-06-01', '09:00:00'), \
+        (2, 2, '2023-06-02', '10:00:00'), \
+        (3, 3, '2023-06-03', '11:00:00'), \
+        (4, 4, '2023-06-04', '12:00:00'); \
+    INSERT INTO Medications (medication_name, dosage, patient_id) VALUES \
+        ('Ibuprofen', '200mg', 1), \
+        ('Paracetamol', '500mg', 2), \
+        ('Amoxicillin', '250mg', 3), \
+        ('Metformin', '850mg', 4); \
+    INSERT INTO Departments (department_name, head_of_department) VALUES \
+        ('Cardiology', 'Dr. Gregory House'), \
+        ('Neurology', 'Dr. Meredith Grey'), \
+        ('Oncology', 'Dr. Richard Webber'), \
+        ('Pediatrics', 'Dr. Miranda Bailey');" && \
+    mysql -prootpassword -e "USE Bank; \
     INSERT INTO Accounts (customer_id, account_type, balance) VALUES \
         (301, 'Savings', 5000.00), \
         (302, 'Checking', 1500.00), \
@@ -268,7 +280,12 @@ RUN service mysql start && sleep 5 && \
         ('Emma', 'Wilson', 'emma.wilson@bank.com', '555-5555', 'Manager', '2022-01-01'), \
         ('Liam', 'Martinez', 'liam.martinez@bank.com', '555-6666', 'Clerk', '2022-02-01'), \
         ('Olivia', 'Anderson', 'olivia.anderson@bank.com', '555-7777', 'Teller', '2022-03-01'), \
-        ('Noah', 'Thompson', 'noah.thompson@bank.com', '555-8888', 'Loan Officer', '2022-04-01');" && \
+        ('Noah', 'Thompson', 'noah.thompson@bank.com', '555-8888', 'Loan Officer', '2022-04-01'); \
+    INSERT INTO CreditCards (customer_id, card_number, card_type, expiration_date) VALUES \
+        (301, '4000123412341234', 'Visa', '2025-12-31'), \
+        (302, '5100123412341234', 'MasterCard', '2024-11-30'), \
+        (303, '370012341234123', 'American Express', '2026-10-31'), \
+        (304, '6011123412341234', 'Discover', '2025-09-30');" && \
     mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Company.Employees FROM 'enea'@'localhost';" && \
     mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Company.Customers FROM 'enea'@'localhost';" && \
     mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Company.Orders FROM 'enea'@'localhost';" && \
@@ -278,6 +295,7 @@ RUN service mysql start && sleep 5 && \
     mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Bank.Accounts FROM 'enea'@'localhost';" && \
     mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Bank.Customers FROM 'enea'@'localhost';" && \
     mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Bank.Employees FROM 'enea'@'localhost';" && \
+    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Bank.CreditCards FROM 'enea'@'localhost';" && \
     mysql -prootpassword -e "FLUSH PRIVILEGES;" && \
     service mysql stop
 
