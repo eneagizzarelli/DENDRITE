@@ -16,6 +16,7 @@ RUN service mysql start && sleep 5 && \
     mysql -prootpassword -e "DELETE FROM mysql.user WHERE User='';" && \
     mysql -prootpassword -e "DROP DATABASE IF EXISTS test;" && \
     mysql -prootpassword -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';" && \
+    mysql -prootpassword -e "CREATE USER 'enea'@'localhost' IDENTIFIED BY 'password';" && \
     mysql -prootpassword -e "FLUSH PRIVILEGES;" && \
     mysql -prootpassword -e "CREATE DATABASE IF NOT EXISTS Company;" && \
     mysql -prootpassword -e "USE Company; \
@@ -284,24 +285,17 @@ RUN service mysql start && sleep 5 && \
         (2, '5100123412341234', 'MasterCard', '2024-11-30'), \
         (3, '370012341234123', 'American Express', '2026-10-31'), \
         (4, '6011123412341234', 'Discover', '2025-09-30');" && \
-    mysql -prootpassword -e "FLUSH PRIVILEGES;" && \
-    mysql -prootpassword -e "CREATE USER 'enea'@'localhost' IDENTIFIED BY 'password';" && \
-    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON *.* TO 'enea'@'localhost';" && \
-    mysql -prootpassword -e "FLUSH PRIVILEGES;" && \
-    mysql -prootpassword -e "GRANT SELECT, INSERT, UPDATE, DELETE ON Company.* TO 'enea'@'localhost';" && \
-    mysql -prootpassword -e "GRANT SELECT, INSERT, UPDATE, DELETE ON University.* TO 'enea'@'localhost';" && \
-    mysql -prootpassword -e "GRANT SELECT, INSERT, UPDATE, DELETE ON Hospital.* TO 'enea'@'localhost';" && \
-    mysql -prootpassword -e "GRANT SELECT, INSERT, UPDATE, DELETE ON Bank.* TO 'enea'@'localhost';" && \
-    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Company.Employees FROM 'enea'@'localhost';" && \
-    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Company.Customers FROM 'enea'@'localhost';" && \
-    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Company.Orders FROM 'enea'@'localhost';" && \
-    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON University.Professors FROM 'enea'@'localhost';" && \
-    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Hospital.Patients FROM 'enea'@'localhost';" && \
-    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Hospital.Doctors FROM 'enea'@'localhost';" && \
-    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Bank.Accounts FROM 'enea'@'localhost';" && \
-    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Bank.Customers FROM 'enea'@'localhost';" && \
-    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Bank.Employees FROM 'enea'@'localhost';" && \
-    mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Bank.CreditCards FROM 'enea'@'localhost';" && \
+    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Company.Projects TO 'enea'@'localhost';" && \
+    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Company.Products TO 'enea'@'localhost';" && \
+    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON University.Students TO 'enea'@'localhost';" && \
+    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON University.Courses TO 'enea'@'localhost';" && \
+    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON University.Enrollments TO 'enea'@'localhost';" && \
+    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON University.Departments TO 'enea'@'localhost';" && \
+    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Hospital.Appointments TO 'enea'@'localhost';" && \
+    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Hospital.Medications TO 'enea'@'localhost';" && \
+    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Hospital.Departments TO 'enea'@'localhost';" && \
+    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Bank.Transactions TO 'enea'@'localhost';" && \
+    mysql -prootpassword -e "GRANT ALL PRIVILEGES ON Bank.Loans TO 'enea'@'localhost';" && \
     mysql -prootpassword -e "FLUSH PRIVILEGES;" && \
     service mysql stop
 
