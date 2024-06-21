@@ -194,10 +194,10 @@ RUN service mysql start && sleep 5 && \
         ('Initech', 'Peter Gibbons', 'peter.gibbons@initech.com', '555-3210'), \
         ('Umbrella Corp', 'Alice Abernathy', 'alice.abernathy@umbrella.com', '555-7890'); \
     INSERT INTO Orders (customer_id, order_date, total, status) VALUES \
-        (201, '2023-04-01', 1500.00, 'Shipped'), \
-        (202, '2023-05-15', 2500.00, 'Processing'), \
-        (203, '2023-06-20', 3500.00, 'Delivered'), \
-        (204, '2023-07-05', 4500.00, 'Cancelled'); \
+        (1, '2023-04-01', 1500.00, 'Shipped'), \
+        (2, '2023-05-15', 2500.00, 'Processing'), \
+        (3, '2023-06-20', 3500.00, 'Delivered'), \
+        (4, '2023-07-05', 4500.00, 'Cancelled'); \
     INSERT INTO Products (product_name, product_price, stock) VALUES \
         ('Laptop', 1200.00, 50), \
         ('Smartphone', 800.00, 150), \
@@ -220,10 +220,10 @@ RUN service mysql start && sleep 5 && \
         ('William', 'Lee', 'william.lee@uni.edu', '555-7777'), \
         ('Patricia', 'Miller', 'patricia.miller@uni.edu', '555-8888'); \
     INSERT INTO Enrollments (student_id, course_id, enroll_date) VALUES \
-        (1, 101, '2023-01-15'), \
-        (2, 102, '2023-02-05'), \
-        (3, 103, '2023-03-10'), \
-        (4, 104, '2023-04-15'); \
+        (1, 1, '2023-01-15'), \
+        (2, 2, '2023-02-05'), \
+        (3, 3, '2023-03-10'), \
+        (4, 4, '2023-04-15'); \
     INSERT INTO Departments (department_name, head_of_department) VALUES \
         ('Computer Science', 'Dr. Alan Turing'), \
         ('Mathematics', 'Dr. Ada Lovelace'), \
@@ -245,11 +245,11 @@ RUN service mysql start && sleep 5 && \
         (2, 2, '2023-06-02', '10:00:00'), \
         (3, 3, '2023-06-03', '11:00:00'), \
         (4, 4, '2023-06-04', '12:00:00'); \
-    INSERT INTO Medications (medication_name, dosage, patient_id) VALUES \
-        ('Ibuprofen', '200mg', 1), \
-        ('Paracetamol', '500mg', 2), \
-        ('Amoxicillin', '250mg', 3), \
-        ('Metformin', '850mg', 4); \
+    INSERT INTO Medications (patient_id, medication_name, dosage, start_date) VALUES \
+        (1, 'Ibuprofen', '200mg', '2023-06-01'), \
+        (2, 'Paracetamol', '500mg', '2023-06-02'), \
+        (3, 'Amoxicillin', '250mg', '2023-06-03'), \
+        (4, 'Metformin', '850mg', '2023-06-04'); \
     INSERT INTO Departments (department_name, head_of_department) VALUES \
         ('Cardiology', 'Dr. Gregory House'), \
         ('Neurology', 'Dr. Meredith Grey'), \
@@ -257,10 +257,10 @@ RUN service mysql start && sleep 5 && \
         ('Pediatrics', 'Dr. Miranda Bailey');" && \
     mysql -prootpassword -e "USE Bank; \
     INSERT INTO Accounts (customer_id, account_type, balance) VALUES \
-        (301, 'Savings', 5000.00), \
-        (302, 'Checking', 1500.00), \
-        (303, 'Savings', 3000.00), \
-        (304, 'Checking', 2500.00); \
+        (1, 'Savings', 5000.00), \
+        (2, 'Checking', 1500.00), \
+        (3, 'Savings', 3000.00), \
+        (4, 'Checking', 2500.00); \
     INSERT INTO Transactions (account_id, transaction_date, amount, transaction_type) VALUES \
         (1, '2023-05-01', 1000.00, 'Deposit'), \
         (2, '2023-05-02', 500.00, 'Withdrawal'), \
@@ -272,20 +272,20 @@ RUN service mysql start && sleep 5 && \
         ('Alice Johnson', 'Alice Johnson', 'alice.johnson@bank.com', '555-3333'), \
         ('Bob Brown', 'Bob Brown', 'bob.brown@bank.com', '555-4444'); \
     INSERT INTO Loans (customer_id, loan_amount, start_date, end_date) VALUES \
-        (301, 10000.00, '2023-01-01', '2024-01-01'), \
-        (302, 20000.00, '2023-02-01', '2024-02-01'), \
-        (303, 15000.00, '2023-03-01', '2024-03-01'), \
-        (304, 25000.00, '2023-04-01', '2024-04-01'); \
+        (1, 10000.00, '2023-01-01', '2024-01-01'), \
+        (2, 20000.00, '2023-02-01', '2024-02-01'), \
+        (3, 15000.00, '2023-03-01', '2024-03-01'), \
+        (4, 25000.00, '2023-04-01', '2024-04-01'); \
     INSERT INTO Employees (first_name, last_name, email, phone_number, position, hire_date) VALUES \
         ('Emma', 'Wilson', 'emma.wilson@bank.com', '555-5555', 'Manager', '2022-01-01'), \
         ('Liam', 'Martinez', 'liam.martinez@bank.com', '555-6666', 'Clerk', '2022-02-01'), \
         ('Olivia', 'Anderson', 'olivia.anderson@bank.com', '555-7777', 'Teller', '2022-03-01'), \
         ('Noah', 'Thompson', 'noah.thompson@bank.com', '555-8888', 'Loan Officer', '2022-04-01'); \
     INSERT INTO CreditCards (customer_id, card_number, card_type, expiration_date) VALUES \
-        (301, '4000123412341234', 'Visa', '2025-12-31'), \
-        (302, '5100123412341234', 'MasterCard', '2024-11-30'), \
-        (303, '370012341234123', 'American Express', '2026-10-31'), \
-        (304, '6011123412341234', 'Discover', '2025-09-30');" && \
+        (1, '4000123412341234', 'Visa', '2025-12-31'), \
+        (2, '5100123412341234', 'MasterCard', '2024-11-30'), \
+        (3, '370012341234123', 'American Express', '2026-10-31'), \
+        (4, '6011123412341234', 'Discover', '2025-09-30');" && \
     mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Company.Employees FROM 'enea'@'localhost';" && \
     mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Company.Customers FROM 'enea'@'localhost';" && \
     mysql -prootpassword -e "REVOKE ALL PRIVILEGES ON Company.Orders FROM 'enea'@'localhost';" && \
