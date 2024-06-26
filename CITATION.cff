@@ -1,0 +1,19 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: DENDRITE
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Enea
+    family-names: Gizzarelli
+    email: eneagizzarelli2000@gmail.com
+repository-code: 'https://github.com/eneagizzarelli/DENDRITE'
+abstract: >-
+  DENDRITE: static equivalent of SYNAPSE.
+license: MIT
+version: 1.0.0
+date-released: '2024-06-26'
