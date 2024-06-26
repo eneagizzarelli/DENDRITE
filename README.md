@@ -15,7 +15,7 @@
     <img src="DENDRITE_logo.png" alt="Logo" width="220" height="220">
   </a>
 
-  <h3 align="center"><strong>DENDRITE: static equivalent of [SYNAPSE](https://github.com/eneagizzarelli/SYNAPSE).</strong></h3>
+  <h3 align="center">DENDRITE: static equivalent of <a href="https://github.com/eneagizzarelli/SYNAPSE" style="text-decoration:none;">SYNAPSE</a></h3>
 
   <p align="center">
     <a href="https://github.com/eneagizzarelli/DENDRITE/issues/new?labels=bug&template=bug_report.md">Report Bug</a>
