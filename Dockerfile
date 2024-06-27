@@ -1,16 +1,24 @@
+# start with the latest Ubuntu image
 FROM ubuntu:latest
 
+# add user enea and set password, delete default user ubuntu
 RUN useradd -m enea && \
     echo "enea:password" | chpasswd && \
     userdel -r ubuntu
 
+# install required packages, remove bash-completion, 
+# install mysql-server in a non-interactive way, clean up
 RUN apt-get update && \
     apt-get --purge remove bash-completion && \
     apt-get install -y mysql-server && \
     apt-get clean
 
+# set data directory for mysql
 RUN usermod -d /var/lib/mysql/ mysql
 
+# start mysql service, wait for it to start,
+# execute mysql_secure_installation script in a non-interactive way,
+# create databases and tables, insert arbitrary data, stop mysql service
 RUN service mysql start && sleep 5 && \
     mysql -prootpassword -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY 'rootpassword';" && \
     mysql -prootpassword -e "DELETE FROM mysql.user WHERE User='';" && \
@@ -288,6 +296,7 @@ RUN service mysql start && sleep 5 && \
         (4, '6011123412341234', 'Discover', '2025-09-30');" && \
     service mysql stop
 
+# set up mysql configuration
 RUN sed -i 's/^# pid-file/pid-file/' /etc/mysql/mysql.conf.d/mysqld.cnf && \
     sed -i 's/^# socket/socket/' /etc/mysql/mysql.conf.d/mysqld.cnf && \
     sed -i 's/^# port/port/' /etc/mysql/mysql.conf.d/mysqld.cnf && \
@@ -295,22 +304,28 @@ RUN sed -i 's/^# pid-file/pid-file/' /etc/mysql/mysql.conf.d/mysqld.cnf && \
     sed -i 's/^# general_log_file/general_log_file/' /etc/mysql/mysql.conf.d/mysqld.cnf && \
     sed -i 's/^# general_log/general_log/' /etc/mysql/mysql.conf.d/mysqld.cnf
 
+# set up permissions for mysql directories
 RUN chmod go+rx /var/lib/mysql/ && \
     chmod go+rx /var/run/mysqld/ && \
     chmod 777 /var/log/mysql
 
+# create directories for enea user copying content from local content/ directory
 COPY ./content/Projects /home/enea/Projects
 COPY ./content/Reports /home/enea/Reports
 COPY ./content/Scripts /home/enea/Scripts
 COPY ./content/Documents /home/enea/Documents
 
+# set up permissions for enea user directories
 RUN chown -R enea:enea /home/enea/Projects && \
     chown -R enea:enea /home/enea/Reports && \
     chown -R enea:enea /home/enea/Scripts && \
     chown -R enea:enea /home/enea/Documents
 
+# disable completion for enea user
 RUN echo "set disable-completion on" >> /home/enea/.inputrc
 
+# switch to enea user
 USER enea
 
+# set working directory for enea user
 WORKDIR /home/enea
