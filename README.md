@@ -114,7 +114,7 @@ It works leveraging **Docker containers**. Whenever a user connects to the machi
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-
+Adopting the aforementioned configuration will run a DENDRITE container instead of the real file system whenever user _enea_ (or the one you specifically decided) connects to your SSH server.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
