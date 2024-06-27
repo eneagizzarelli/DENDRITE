@@ -1,5 +1,15 @@
 #!/bin/bash
 
+#
+# Convenience script to configure DENDRITE.
+# Mainly used to update the local configuration after the code has been modified.
+#   1. Previous DENDRITE folder is removed and the new one is cloned in the same location.
+#   2. "logs" and "data" folders are created.
+#   3. GeoLite2-City.mmdb is downloaded leveraging downloadGeoLiteDB.sh script.
+#   4. Ownership and permissions are set to the enea user.
+# This script must be executed as root.
+#
+
 DENDRITE_path="/home/enea/DENDRITE"
 
 if [ -d "${DENDRITE_path}" ]; then
