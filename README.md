@@ -86,10 +86,28 @@ It works leveraging **Docker containers**. Whenever a user connects to the machi
 
 **Note 2**: if you are hosting the code on a VM like _AWS EC2_ and you want to allow password authentication, remember to change your `/etc/ssh/sshd_config.d/50-cloud-init.conf` file setting `PasswordAuthentication yes` (`60-cloudimg-settings.conf` for _Oracle Cloud Infrastructure_).
 
-6. Restart your SSH service
+5. Restart your SSH service
    ```sh
    systemctl restart sshd
    ```
+
+6. Install Docker
+   ```sh
+   apt install docker.io
+   ```
+
+7. Add user _enea_ (or the one you specifically decided) to the _docker_ group
+   ```sh
+   usermod -aG docker enea
+   ```
+
+8. Enter DENDRITE project folder and build the docker file to create an image named `dendrite-image`
+   ```sh
+   docker build -t dendrite-image .
+   ```
+   Where the dot is the location of the _Dockerfile_.
+
+9. Modify your `/home/enea/.profile` file appending the content of `config/profile` file you can find in this project. This enables the possibility, whenever a user connects to your machine using SSH, to: create/run (if not already existent) or re-start (if already existent) the Docker container, attach the user to it and extract both terminal and MySQL logs from the container itself to the local machine. In this way the user will not be able to access your machine. Its interactions with the terminal will be constrained to the container file system.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
