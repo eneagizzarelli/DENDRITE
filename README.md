@@ -51,6 +51,8 @@
 
 It works leveraging **Docker containers**. Whenever a user connects to the machine, a new container is run starting from an Ubuntu image over which _MySQL server_ has been installed and populated and the file system has been enriched with arbitrary content. This enables the possibility to support **multiple sessions** for the same user. Each IP address will have its own file system for each subsequent session. Different users will never see modifications done by others.
 
+DENDRITE has been mainly implemented with the aim of a **comparative evaluation**. It is the static equivalent of a dynamic honeypot leveraging **generative AI**: [**SYNAPSE**](https://github.com/eneagizzarelli/SYNAPSE).
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Installation
