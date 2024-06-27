@@ -49,11 +49,47 @@
  - SSH Server
  - MySQL Server
 
+It works leveraging **Docker containers**. Whenever a user connects to the machine, a new container is run starting from an Ubuntu image over which _MySQL server_ has been installed and populated and the file system has been enriched with arbitrary content. This enables the possibility to support **multiple sessions** for the same user. Each IP address will have its own file system for each subsequent session. Different users will never see modifications done by others.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Installation
 
+1. Clone this repository
+   ```sh
+   git clone https://github.com/eneagizzarelli/DENDRITE.git
+   ```
 
+2. Enter the project folder and install requirements
+   ```sh
+   pip install -r requirements.txt
+   ```
+
+**Note 1**: in my configuration, DENDRITE project folder has been cloned under the specific path `/home/enea/DENDRITE`. Every script/source file in this project refers to other scripts/source files using the above absolute path as a base path. If you plan to use a different configuration, like a different location or a different user, remember to change the paths and to replace _enea_ everywhere.
+
+3. Copy `configDENDRITE.sh` script from `scripts/` folder outside the `DENDRITE` directory and, after assigning the necessary permissions (also to `downloadGeoLiteDB.sh`), run it
+   ```sh
+   chmod +x configDENDRITE.sh
+   ./configDENDRITE.sh
+   ```
+    This will complete the configuration of DENDRITE, creating the necessary folders, downloading GeoLite2 database and assigning ownership and permissions to user _enea_ (or the one you specifically decided).
+
+4. Modify your `/etc/ssh/sshd_config` file in order to disable many SSH parameters (not handled by the code) whenever a user connects to your machine using SSH:
+   ```sh
+   Match User enea
+      X11Forwarding no
+      AllowTcpForwarding no
+      AllowAgentForwarding no
+      PermitTunnel no
+      PermitOpen none
+   ```
+
+**Note 2**: if you are hosting the code on a VM like _AWS EC2_ and you want to allow password authentication, remember to change your `/etc/ssh/sshd_config.d/50-cloud-init.conf` file setting `PasswordAuthentication yes` (`60-cloudimg-settings.conf` for _Oracle Cloud Infrastructure_).
+
+6. Restart your SSH service
+   ```sh
+   systemctl restart sshd
+   ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
