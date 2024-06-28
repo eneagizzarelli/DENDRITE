@@ -48,9 +48,9 @@
 
 **honeypot** entirely written in Python. It currently implements two services:
  - SSH Server
- - MySQL Server
+ - MySQL Server.
 
-It works leveraging **Docker containers**. Whenever a user connects to the machine, a new container is run starting from an Ubuntu image over which _MySQL server_ has been installed and populated and the file system has been enriched with arbitrary content. This enables the possibility to support **multiple sessions** for the same user. Each IP address will have its own file system for each subsequent session. Different users will never see modifications done by others.
+It works leveraging **Docker containers**. Whenever a user connects to the machine, a new container is run. It will essentially consist in a running instance of an Ubuntu image over which _MySQL server_ has been installed and populated and the file system has been enriched with arbitrary content. This enables the possibility to support **multiple sessions** for the same user. Each IP address will have its own file system for each subsequent session. Different users will never see modifications done by others.
 
 DENDRITE has been mainly implemented with the aim of a **comparative evaluation**. It is the static equivalent of a dynamic honeypot leveraging **generative AI**: [**SYNAPSE**](https://github.com/eneagizzarelli/SYNAPSE).
 
@@ -68,7 +68,7 @@ DENDRITE has been mainly implemented with the aim of a **comparative evaluation*
    pip install -r requirements.txt
    ```
 
-**Note 1**: in my configuration, DENDRITE project folder has been cloned under the specific path `/home/enea/DENDRITE`. Every script/source file in this project refers to other scripts/source files using the above absolute path as a base path. If you plan to use a different configuration, like a different location or a different user, remember to change the paths and to replace _enea_ everywhere.
+**Note 1**: in my configuration, DENDRITE project folder has been cloned under the specific path `/home/enea/DENDRITE`. Every script/source file in this project refers to other scripts/source file using the above absolute path as a base path. If you plan to use an alternative configuration, like different location or user, remember to change the paths and to replace _enea_ everywhere.
 
 3. Copy `configDENDRITE.sh` script from `scripts/` folder outside the `DENDRITE` directory and, after assigning the necessary permissions (also to `downloadGeoLiteDB.sh`), run it
    ```sh
@@ -77,7 +77,7 @@ DENDRITE has been mainly implemented with the aim of a **comparative evaluation*
    ```
     This will complete the configuration of DENDRITE, creating the necessary folders, downloading GeoLite2 database and assigning ownership and permissions to user _enea_ (or the one you specifically decided).
 
-4. Modify your `/etc/ssh/sshd_config` file in order to disable many SSH parameters (not handled by the code) whenever a user connects to your machine using SSH:
+4. Modify your `/etc/ssh/sshd_config` file in order to disable many SSH parameters (not handled by the code) whenever user _enea_ (or the one you specifically decided) connects to your machine using SSH:
    ```sh
    Match User enea
       X11Forwarding no
@@ -104,13 +104,13 @@ DENDRITE has been mainly implemented with the aim of a **comparative evaluation*
    usermod -aG docker enea
    ```
 
-8. Enter DENDRITE project folder and build the docker file to create an image named `dendrite-image`
+8. Enter DENDRITE project folder and build the _Dockerfile_ to create an image named `dendrite-image`
    ```sh
    docker build -t dendrite-image .
    ```
    Where the dot is the location of the _Dockerfile_.
 
-9. Modify your `/home/enea/.profile` file appending the content of `config/profile` file you can find in this project. This enables the possibility, whenever a user connects to your machine using SSH, to: create/run (if not already existent) or re-start (if already existent) the Docker container, attach the user to it and extract both terminal and MySQL logs from the container itself to the local machine. In this way the user will not be able to access your machine. Its interactions with the terminal will be constrained to the container file system.
+9. Modify your `/home/enea/.profile` file appending the content of `config/profile` file you can find in this project. This enables the possibility, whenever user _enea_ (or the one you specifically decided) connects to your machine using SSH, to: create/run (if not already existing) or re-start (if already existing) the Docker container, attach the user to it and extract both terminal and MySQL logs from the container itself to the local machine. In this way the user will not be able to access your machine. Its interactions with the terminal will be constrained to the container file system.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
