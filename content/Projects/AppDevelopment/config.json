@@ -1,0 +1,13 @@
+{
+    "database": {
+        "host": "localhost",
+        "port": 5432,
+        "user": "admin",
+        "password": "password",
+        "dbname": "task_manager"
+    },
+    "server": {
+        "host": "0.0.0.0",
+        "port": 5000
+    }
+}

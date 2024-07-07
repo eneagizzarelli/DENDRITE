@@ -1,0 +1,75 @@
+# run DENDRITE login script
+python3 /home/enea/DENDRITE/src/DENDRITE_login.py
+
+# get the IP address of the incoming connection
+IP_ADDRESS=$(echo $SSH_CLIENT | awk '{print $1}')
+
+# customize environment based on IP address, only for interactive sessions
+if [[ $- == *i* ]]; then
+    IMAGE_NAME="dendrite-image"
+    # set container name based on current IP address
+    CONTAINER_NAME="dendrite-container-$IP_ADDRESS"
+    # set static hostname
+    HOSTNAME="datalab"
+
+    # set resource limits for each container
+    MEMORY_LIMIT="1024m"
+    CPU_LIMIT="0.5"
+
+    # check if the container already exists
+    if [[ "$(docker ps -aq -f name=$CONTAINER_NAME)" == "" ]]; then
+        # if not, run it in a detached mode, set name, hostname, user, memory and cpu limits,
+        # and tail the process to keep the container running
+        docker run -d \
+            --name $CONTAINER_NAME \
+            --hostname $HOSTNAME \
+	        --user enea \
+            --memory $MEMORY_LIMIT \
+            --cpus $CPU_LIMIT \
+            $IMAGE_NAME tail -f /dev/null > /dev/null 2>&1
+    fi
+
+    # start the container if it's not running
+    if [[ "$(docker ps -q -f name=$CONTAINER_NAME)" == "" ]]; then
+        docker start $CONTAINER_NAME > /dev/null 2>&1
+    fi
+
+    # start the mysql service as root
+    docker exec -it --user root $CONTAINER_NAME /bin/bash -c "service mysql start" > /dev/null 2>&1
+
+    # attach user enea to the Docker container in interactive mode
+    docker exec -it --user enea $CONTAINER_NAME /bin/bash
+
+    TERMINAL_HISTORY_FILE_PATH="/home/enea/DENDRITE/logs/${IP_ADDRESS}/${IP_ADDRESS}_terminal_history.txt"
+    TEMP_HISTORY_FILE_PATH="/home/enea/DENDRITE/logs/${IP_ADDRESS}/temp.txt"
+    touch $TERMINAL_HISTORY_FILE_PATH
+    touch $TEMP_HISTORY_FILE_PATH
+
+    # copy the terminal history file from the container to the host in a temporary file
+    docker cp $CONTAINER_NAME:/home/enea/.bash_history $TEMP_HISTORY_FILE_PATH > /dev/null 2>&1
+    # append the terminal history to the main terminal history file
+    cat $TEMP_HISTORY_FILE_PATH >> $TERMINAL_HISTORY_FILE_PATH
+
+    echo "" >> $TERMINAL_HISTORY_FILE_PATH
+    echo "---------- Here the session stopped. ----------" >> $TERMINAL_HISTORY_FILE_PATH
+    echo "" >> $TERMINAL_HISTORY_FILE_PATH
+
+    MYSQL_HISTORY_FILE_PATH="/home/enea/DENDRITE/logs/${IP_ADDRESS}/${IP_ADDRESS}_mysql_history.txt"
+    touch $MYSQL_HISTORY_FILE_PATH
+
+    # copy the mysql query log file from the container to the host in a temporary file
+    docker cp $CONTAINER_NAME:/var/log/mysql/query.log $TEMP_HISTORY_FILE_PATH > /dev/null 2>&1
+    # append the mysql history to the main mysql history file
+    cat $TEMP_HISTORY_FILE_PATH > $MYSQL_HISTORY_FILE_PATH
+
+    rm -f $TEMP_HISTORY_FILE_PATH
+
+    # stop the container when the user exits in background
+    docker stop $CONTAINER_NAME > /dev/null 2>&1 &
+fi
+
+# run DENDRITE logout script
+python3 /home/enea/DENDRITE/src/DENDRITE_logout.py
+
+# exit SSH session
+exit
