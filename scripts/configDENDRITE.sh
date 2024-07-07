@@ -21,6 +21,8 @@ git clone https://github.com/eneagizzarelli/DENDRITE.git ${DENDRITE_path}
 mkdir -p ${DENDRITE_path}/logs
 mkdir -p ${DENDRITE_path}/data
 
+sudo chmod +x ${DENDRITE_path}/scripts/downloadGeoLiteDB.sh
+
 ${DENDRITE_path}/scripts/downloadGeoLiteDB.sh
 
 sudo chown -R enea:enea ${DENDRITE_path}

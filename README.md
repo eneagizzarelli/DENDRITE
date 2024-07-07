@@ -70,7 +70,7 @@ DENDRITE has been mainly implemented with the aim of a **comparative evaluation*
 
 **Note 1**: in my configuration, DENDRITE project folder has been cloned under the specific path `/home/enea/DENDRITE`. Every script/source file in this project refers to other scripts/source file using the above absolute path as a base path. If you plan to use an alternative configuration, like different location or user, remember to change the paths and to replace _enea_ everywhere.
 
-3. Copy `configDENDRITE.sh` script from `scripts/` folder outside the `DENDRITE` directory and, after assigning the necessary permissions (also to `downloadGeoLiteDB.sh`), run it
+3. Copy `configDENDRITE.sh` script from `scripts/` folder outside the `DENDRITE` directory and, after assigning the necessary permissions, run it
    ```sh
    chmod +x configDENDRITE.sh
    ./configDENDRITE.sh
