@@ -140,8 +140,6 @@ LinkedIn - https://linkedin.com/in/eneagizzarelli
 <!-- OTHER PROJECTS -->
 ## Other projects
 
-**DENDRITE**: [https://github.com/eneagizzarelli/DENDRITE](https://github.com/eneagizzarelli/DENDRITE)
-
 **SYNAPSE**: [https://github.com/eneagizzarelli/SYNAPSE](https://github.com/eneagizzarelli/SYNAPSE)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

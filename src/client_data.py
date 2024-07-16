@@ -2,6 +2,8 @@ import os
 import json
 import geoip2.database
 
+DENDRITE_path = "/home/enea/DENDRITE/"
+
 def get_client_ip():
     """
     Extract client IP address from SSH_CLIENT environment variable.
@@ -26,9 +28,8 @@ def get_client_ip():
 # get client IP address as a global variable when this module is imported
 client_ip = get_client_ip()
 
-logs_ip_path = "/home/enea/DENDRITE/logs/" + client_ip
-logs_ip_data_path = logs_ip_path + "/" + client_ip + "_data.json"
-database_path = "/home/enea/DENDRITE/data/GeoLite2-City.mmdb"
+logs_ip_path = DENDRITE_path + "logs/" + client_ip + "/"
+logs_ip_data_path = logs_ip_path + client_ip + "_data.json"
 
 def initialize_client_data(session_start_time):
     """
@@ -85,7 +86,7 @@ def get_client_geolocation():
     geoip2.errors.AddressNotFoundError: if the IP address is not found in the database.
     """
         
-    reader = geoip2.database.Reader(database_path)
+    reader = geoip2.database.Reader(DENDRITE_path + "data/GeoLite2-City.mmdb")
 
     try:
         # get geolocation object for the current IP address
